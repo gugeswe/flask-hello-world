@@ -1,16 +1,12 @@
-import csv
+import pandas as pd
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# Function to load tickers from the CSV file
+# Function to load tickers from the CSV file into a pandas DataFrame
 def load_tickers():
-    tickers = []
-    with open('tickers.csv', 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            tickers.append(row[0])  # Append each ticker (row[0] because it's a single column)
-    return tickers
+    tic = pd.read_csv('tickers.csv', header=None, names=['Ticker', 'Company'])  # Assuming CSV has two columns
+    return tic
 
 @app.route('/')
 def index():
@@ -18,7 +14,8 @@ def index():
 
 @app.route('/show')
 def show():
-    tickers = load_tickers()  # Load tickers from CSV
+    tic = load_tickers()  # Load the DataFrame from CSV
+    tickers = tic.to_dict(orient='records')  # Convert DataFrame to a list of dictionaries
     return render_template('show.html', tickers=tickers)
 
 @app.route('/edit')

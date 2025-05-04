@@ -6,11 +6,22 @@
 </head>
 <body>
     <h1>Tickers List</h1>
-    <ul>
-        {% for ticker in tickers %}
-            <li>{{ ticker }}</li>
-        {% endfor %}
-    </ul>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Company</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticker in tickers %}
+                <tr>
+                    <td>{{ ticker.Ticker }}</td>
+                    <td>{{ ticker.Company }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <a href="/">Back to Menu</a>
 </body>
 </html>
