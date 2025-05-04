@@ -1,6 +1,16 @@
+import csv
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
+# Function to load tickers from the CSV file
+def load_tickers():
+    tickers = []
+    with open('tickers.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            tickers.append(row[0])  # Append each ticker (row[0] because it's a single column)
+    return tickers
 
 @app.route('/')
 def index():
@@ -8,7 +18,8 @@ def index():
 
 @app.route('/show')
 def show():
-    return 'Show page'
+    tickers = load_tickers()  # Load tickers from CSV
+    return render_template('show.html', tickers=tickers)
 
 @app.route('/edit')
 def edit():
