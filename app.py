@@ -10,15 +10,15 @@ def index():
 def show():
     return 'Show page'
 
-@app.route('/edit')
+@app.route('/modify/edit')
 def edit():
     return 'Edit page'
 
-@app.route('/add')
+@app.route('/modify/add')
 def add():
     return 'Add page'
 
-@app.route('/delete')
+@app.route('/modify/delete')
 def delete():
     return 'Delete page'
 
